@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack";
@@ -9,6 +10,7 @@ import "./Login.css";
 import { useAppContext } from "../lib/contextLib";
 
 export default function Login() {
+  const nav = useNavigate();
   const { userHasAuthenticated } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,20 +20,19 @@ export default function Login() {
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-      event.preventDefault();
+    event.preventDefault();
 
-      try {
-          await Auth.signIn(email, password);
-          userHasAuthenticated(true);
-      } catch (error) {
-          // Prints the full error
-          console.error(error);
-          if (error instanceof Error) {
-              alert(error.message);
-          } else {
-              alert(String(error));
-          }
+    try {
+      await Auth.signIn(email, password);
+      userHasAuthenticated(true);
+      nav("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert(String(error));
       }
+    }
   }
 
   return (
