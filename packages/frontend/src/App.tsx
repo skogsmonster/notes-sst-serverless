@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import Routes from "./Routes.tsx";
 import { AppContext, AppContextType } from "./lib/contextLib";
+import { onError } from "./lib/errorLib";
 import "./App.css";
 
 function App() {
@@ -29,9 +30,9 @@ function App() {
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
-    } catch (e) {
-      if (e !== "No current user") {
-        alert(e);
+    } catch (error) {
+      if (error !== "No current user") {
+        onError(error);
       }
     }
 
