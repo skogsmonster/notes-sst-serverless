@@ -96,7 +96,11 @@ export default function Notes() {
     }
   }
 
-  async function handleDelete(event: React.FormEvent<HTMLFormElement>) {
+  function deleteNote() {
+    return API.del("notes", `/notes/${id}`, {});
+  }
+
+  async function handleDelete(event: React.FormEvent<HTMLModElement>) {
     event.preventDefault();
 
     const confirmed = window.confirm(
@@ -108,6 +112,14 @@ export default function Notes() {
     }
 
     setIsDeleting(true);
+
+    try {
+      await deleteNote();
+      nav("/");
+    } catch (e) {
+      onError(e);
+      setIsDeleting(false);
+    }
   }
 
   return (
