@@ -16,6 +16,7 @@ const config = {
   },
   // Frontend config
   MAX_ATTACHMENT_SIZE: 5000000,
+  STRIPE_KEY: "pk_test_51Of59hLgL1f48WcsLLbz0engf6iArkUQCTrQy2T8ZOBwDHYkPRDUDrIu3kCZ0uL4axSy41TB8BTtBqaLj2K0sfhv004FAkWsJH",
 };
 
 export default config;
